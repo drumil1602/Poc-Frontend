@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import axios from 'axios';
+import Home from "./pages/Home/Home";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [image, setImage] = useState();
 
   // async function handleSubmit(e: any) {
   //   e.preventDefault();
@@ -35,24 +31,7 @@ function App() {
   //     // err.response.data.msg && setError(err.response.data.msg);
   //   }
   // }
-
-  const getAllImages = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/images`);
-    console.log(response);
-  }
-  useEffect(() => { getAllImages(); }, []);
-  return (
-    <>
-      {/* 
-      <form onSubmit={handleSubmit}>
-        <input type="file" name="" id="" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
-        <button type="submit">
-          Submit
-        </button>
-      </form>
-      */}
-    </>
-  )
+  return <Home />;
 }
 
-export default App
+export default App;
