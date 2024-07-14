@@ -9,16 +9,13 @@ const Home: React.FC = () => {
   const [isLoading, setloading] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>("/room.jpg");
 
-  const onClick = async (imageData: Image) => {
-    setloading(true);
-    try {
-      //TODO logic here
-      setImageSrc("/room.jpg");
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setloading(false);
-    }
+  const onClick = (imageData: Image) => {
+      setloading(true);
+      setTimeout(() => {
+        setImageSrc(imageData.imageUrl);
+        setloading(false);
+      }, 2500)
+    
   };
 
   return (

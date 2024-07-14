@@ -9,6 +9,7 @@ import { getAllImages } from "../../services/images";
 
 export type Image = {
   imageUrl: string;
+  tileUrl: string;
   name: string;
   size: {
     height: number;
@@ -19,11 +20,12 @@ export type Image = {
 };
 
 export interface SidebarProps {
-  onClick: (any: Image ) => void;
+  onClick: (any: Image) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onClick }) => {
   const [images, setImages] = useState<Image[]>([]);
+  const [selectedTile, setSelectedTile] = useState<string>("")
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -35,8 +37,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onClick }) => {
   }, []);
 
   const handleClick = (image: Image) => {
+    setSelectedTile(image._id)
     onClick(image);
-  }
+  };
 
   return (
     <div className={styles.sidebar}>
@@ -45,11 +48,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onClick }) => {
       </div>
       <div className={styles.btnsContainer}>
         <button>
-          <SiTicktick />
+          <IoCube />
           Floors
         </button>
         <button>
-          <IoCube />
+          <SiTicktick />
           Walls
         </button>
       </div>
@@ -72,9 +75,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onClick }) => {
       </div>
       <div className={styles.tileContainer}>
         {images.map((image) => (
-          <div className={styles.tile} key={image._id} onClick={() => handleClick(image)}>
+          <div
+            className={`${styles.tile} ${image._id === selectedTile ? styles.selected : ""}`}
+            key={image._id}
+            onClick={() => handleClick(image)}
+
+          >
             <div className={styles.tileImageContainer}>
-              <img src={image.imageUrl} alt={image.name} />
+              <img src={image.tileUrl} alt={image.name} />
             </div>
             <div>
               <h5>{image.name}</h5>
