@@ -7,15 +7,18 @@ import loaderData from "../../Lottie/loaderData.json";
 
 const Home: React.FC = () => {
   const [isLoading, setloading] = useState<boolean>(false);
-  const [imageSrc, setImageSrc] = useState<string>("/room.jpg");
+  const [imageSrc, setImageSrc] = useState<string>("");
 
-  const onClick = (imageData: Image) => {
+  const onClick = (imageData: Image, flag?: boolean) => {
+    if (!flag) {
       setloading(true);
       setTimeout(() => {
         setImageSrc(imageData.imageUrl);
         setloading(false);
       }, 2500)
-    
+    } else {
+      setImageSrc(imageData.imageUrl);
+    }
   };
 
   return (

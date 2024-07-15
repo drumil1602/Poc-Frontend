@@ -20,7 +20,7 @@ export type Image = {
 };
 
 export interface SidebarProps {
-  onClick: (any: Image) => void;
+  onClick: (any: Image, flag?: boolean) => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onClick }) => {
@@ -30,7 +30,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onClick }) => {
   useEffect(() => {
     const fetchImages = async () => {
       const response = await getAllImages();
+      console.log(response);
       setImages(response.data);
+      setSelectedTile(response.data[0]._id);
+      onClick(response.data[0], true)
     };
 
     fetchImages();
